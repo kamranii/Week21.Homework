@@ -1,0 +1,74 @@
+<form [formGroup]="recipeForm" (ngSubmit)="onSubmitRecipe(recipeForm)">
+
+    <!-- recipe name -->
+    <div class="form-group">
+        <label for="name" class="font-weight-bold text-dark">
+            Name: 
+        </label>
+        <input class="form-control mt-1 mb-2" type="text" formControlName="name" id="name" placeholder="Add a recipe name">
+    </div>
+    <div *ngIf="recipeForm.get('name').invalid && (recipeForm.get('name').dirty || recipeForm.get('name').touched)"
+    class="alert alert-danger">
+        Name is required and must be minimum 5 characters long
+    </div>
+
+    <!-- recipe description -->
+    <div class="form-group">
+        <label for="description" class="mt-4 text-dark">
+            Description: 
+        </label>
+        <input class="form-control mt-1 mb-2" id="description" type="text" formControlName="description" placeholder="Add a recipe description">
+    </div>
+    <div *ngIf="recipeForm.get('description').invalid && (recipeForm.get('description').dirty || recipeForm.get('description').touched)" class="alert alert-danger">
+        Description is required and must be 15 characters long
+    </div>
+
+    <!-- recipe image -->
+    <div class="form-group">
+        <label for="path" class="mt-4 text-dark">
+            Image URL: 
+        </label>
+        <input type="url" id="path" class="form-control mt-1 mb-2" formControlName="path" placeholder="Add an image url">
+    </div>
+    <div *ngIf="recipeForm.get('path').invalid && (recipeForm.get('path').dirty || recipeForm.get('path').touched)" class="alert alert-danger">
+        A full path is required and must be either a ".jpg" or ".jpeg" extension
+    </div>
+
+    <div formGroupName="ingredients">
+
+        <div class="form-group">
+            <label for="firstIngredientName" class="mt-4 text-dark">
+                First Ingredient Name:
+            </label>
+            <input class="form-control mt-1 mb-1" type="text" formControlName="firstIngredientName" id="firstIngredientName" placeholder="Add an ingredient name">
+            <div *ngIf="recipeForm.get('ingredients').get('firstIngredientName').invalid && (recipeForm.get('ingredients').get('firstIngredientName').dirty || recipeForm.get('ingredients').get('firstIngredientName').touched)" class="alert alert-danger">
+                Ingredient name is required
+            </div>
+            <label for="firstIngredientAmount" class="mt-2 text-dark">
+                First Ingredient Amount:
+            </label>
+            <input type="number" class="form-control mt-1 mb-2" formControlName="firstIngredientAmount" id="firstIngredientAmount" placeholder="Add the ingredient amount">
+            <div *ngIf="recipeForm.get('ingredients').get('firstIngredientAmount').invalid && (recipeForm.get('ingredients').get('firstIngredientAmount').dirty || recipeForm.get('ingredients').get('firstIngredientAmount').touched)" class="alert alert-danger">
+                Ingredient amount is required and cannot be less than 1
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="secondIngredientName" class="mt-4 text-dark">
+                Second Ingredient Name:
+            </label>
+            <input class="form-control mt-1 mb-1" type="text" formControlName="secondIngredientName" id="secondIngredientName" placeholder="Add an ingredient name">
+            <div *ngIf="recipeForm.get('ingredients').get('secondIngredientName').invalid && (recipeForm.get('ingredients').get('secondIngredientName').dirty || recipeForm.get('ingredients').get('secondIngredientName').touched)" class="alert alert-danger">
+                Ingredient name is required
+            </div>
+            <label for="secondIngredientName" class="mt-2 text-dark">
+                Second Ingredient Amount:
+            </label>
+            <input type="number" class="form-control mt-1 mb-2" formControlName="secondIngredientAmount" id="secondIngredientAmount" placeholder="Add the ingredient amount">
+            <div *ngIf="recipeForm.get('ingredients').get('secondIngredientAmount').invalid && (recipeForm.get('ingredients').get('secondIngredientAmount').dirty || recipeForm.get('ingredients').get('secondIngredientAmount').touched)" class="alert alert-danger">
+                Ingredient amount is required and cannot be less than 1
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-4" [disabled]="!recipeForm.valid">Add recipe</button>
+</form>
